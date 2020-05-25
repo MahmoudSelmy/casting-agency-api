@@ -6,13 +6,13 @@ from flask_cors import CORS
 
 def create_app(test_config=None):
     # create and configure the app
-    app = Flask(__name__)
-    CORS(app)
+    flask_app = Flask(__name__)
+    CORS(flask_app)
 
-    return app
+    return flask_app
 
 
-APP = create_app()
+app = create_app()
 
 if __name__ == '__main__':
-    APP.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)
