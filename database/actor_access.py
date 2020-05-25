@@ -67,25 +67,7 @@ class ActorAccess:
 
         return actor
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @classmethod
+    def delete_actor(cls, actor_id):
+        actor = cls.get_actor_by_id(actor_id)
+        actor.delete()

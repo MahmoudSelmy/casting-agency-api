@@ -1,6 +1,4 @@
-import os
 from flask import Flask, request, abort, jsonify
-from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from database import ActorAccess
 
@@ -71,6 +69,19 @@ class Server:
                 abort(404)
 
     def _build_delete_actor_end_point(self):
-        pass
+        @self.flask_server.route('/actors/<actor_id>', methods=['DELETE'])
+        def delete_actors(actor_id):
 
+            if actor_id is None:
+                abort(400)
 
+            try:
+                ActorAccess.delete_actor(actor_id)
+            except Exception as e:
+                print(e)
+                abort(404)
+
+            return jsonify({
+                'success': True,
+                'actor_id': actor_id
+            })
