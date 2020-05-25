@@ -1,6 +1,6 @@
 from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
-from database import ActorAccess
+from database import ActorAccess, MovieAccess
 
 
 class Server:
@@ -11,6 +11,7 @@ class Server:
 
     def _build_end_points(self):
         self._build_actors_end_points()
+        self._build_movies_end_points()
 
     def _build_actors_end_points(self):
         self._build_get_actors_page_end_point()
@@ -84,4 +85,22 @@ class Server:
             return jsonify({
                 'success': True,
                 'actor_id': actor_id
+            })
+
+    def _build_movies_end_points(self):
+        self._build_get_movies_page_end_point()
+
+    def _build_get_movies_page_end_point(self):
+        @self.flask_server.route('/movies', methods=['GET'])
+        def get_movies():
+            page_number = request.args.get('page', 1, type=int)
+            actors = MovieAccess.get_movies_page(page_number)
+
+            if len(page_number) == 0:
+                abort(404)
+
+            return jsonify({
+                'success': True,
+                'movies': actors,
+                'total_movies': MovieAccess.get_total_number()
             })
