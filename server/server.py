@@ -62,7 +62,7 @@ class Server:
                 actor = ActorAccess.update_actor(actor_id, body)
                 return jsonify({
                     'success': True,
-                    'actor_id': actor_id.id,
+                    'actor_id': actor_id,
                     'actors': [actor.format()]
                 })
             except Exception as e:
@@ -124,4 +124,20 @@ class Server:
                 abort(422)
 
     def _build_patch_movie_end_point(self):
-        pass
+        @self.flask_server.route('/movies/<movie_id>', methods=['PATCH'])
+        def patch_actor(movie_id):
+            body = request.get_json()
+
+            if (movie_id is None) or (body is None):
+                abort(400)
+
+            try:
+                movie = MovieAccess.update_movie(movie_id, body)
+                return jsonify({
+                    'success': True,
+                    'actor_id': movie_id,
+                    'actors': [movie.format()]
+                })
+            except Exception as e:
+                print(e)
+                abort(404)
