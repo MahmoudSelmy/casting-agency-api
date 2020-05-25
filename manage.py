@@ -5,7 +5,7 @@ from app import app
 from models import db
 
 migrate = Migrate(app, db)
-manager = Manager(app)
+manager = Manager(app.flask_server)
 
 manager.add_command('db', MigrateCommand)
 

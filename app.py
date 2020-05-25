@@ -1,18 +1,7 @@
-import os
-from flask import Flask, request, abort, jsonify
-from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
+from server import Server
 
 
-def create_app(test_config=None):
-    # create and configure the app
-    flask_app = Flask(__name__)
-    CORS(flask_app)
-
-    return flask_app
-
-
-app = create_app()
+app = Server(__name__)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.flask_server.run(host='0.0.0.0', port=8080, debug=True)
