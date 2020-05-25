@@ -16,6 +16,7 @@ class Server:
 
     def _build_actors_end_points(self):
         self._build_get_actors_page_end_point()
+        self._build_post_actor_end_point()
 
     def _build_get_actors_page_end_point(self):
         @self.flask_server.route('/actors', methods=['GET'])
@@ -31,3 +32,19 @@ class Server:
                 'actors': actors,
                 'total_actors': ActorAccess.get_total_number()
             })
+
+    def _build_post_actor_end_point(self):
+        @self.flask_server.route('/actors', methods=['POST'])
+        def post_actor():
+            body = request.get_json()
+            if body is None:
+                abort(400)
+            try:
+                actor = ActorAccess.create_actor(body)
+                return jsonify({
+                    'success': True,
+                    'actor_id': actor.id
+                })
+            except Exception as e:
+                print(e)
+                abort(422)
