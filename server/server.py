@@ -10,8 +10,17 @@ class Server:
         self._build_end_points()
 
     def _build_end_points(self):
+        self._build_after_request()
         self._build_actors_end_points()
         self._build_movies_end_points()
+        self._build_error_handlers()
+
+    def _build_after_request(self):
+        @self.flask_server.after_request
+        def after_request(response):
+            response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,true')
+            response.headers.add('Access-Control-Allow-Methods', 'GET,PATCH,POST,DELETE,OPTIONS')
+            return response
 
     def _build_actors_end_points(self):
         self._build_get_actors_page_end_point()
@@ -160,3 +169,45 @@ class Server:
                 'success': True,
                 'movie_id': movie_id
             })
+
+    def _build_error_handlers(self):
+        @self.flask_server.errorhandler(422)
+        def un_processable(error):
+            return jsonify({
+                "success": False,
+                "error": 422,
+                "message": "un-processable"
+            }), 422
+
+        @self.flask_server.errorhandler(401)
+        def un_authorized(error):
+            return jsonify({
+                "success": False,
+                "error": 401,
+                "message": "un-authorized"
+            }), 401
+
+        @self.flask_server.errorhandler(403)
+        def forbidden(error):
+            return jsonify({
+                "success": False,
+                "error": 403,
+                "message": "forbidden"
+            }), 403
+
+        @self.flask_server.errorhandler(400)
+        def bad_request(error):
+            return jsonify({
+                "success": False,
+                "error": 400,
+                "message": "bad request"
+            }), 400
+
+        @self.flask_server.errorhandler(404)
+        def not_found(error):
+            return jsonify({
+                "success": False,
+                "error": 404,
+                "message": "resource not found"
+            }), 404
+
