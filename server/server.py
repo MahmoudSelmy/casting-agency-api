@@ -2,6 +2,7 @@ from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
 from database import ActorAccess, MovieAccess
 from models import setup_db
+from auth import requires_auth
 
 
 class Server:
@@ -32,6 +33,7 @@ class Server:
 
     def _build_get_actors_page_end_point(self):
         @self.flask_server.route('/actors', methods=['GET'])
+        @requires_auth('get:actors')
         def get_actors():
             page_number = request.args.get('page', 1, type=int)
             actors = ActorAccess.get_actors_page(page_number)
@@ -47,6 +49,7 @@ class Server:
 
     def _build_post_actor_end_point(self):
         @self.flask_server.route('/actors', methods=['POST'])
+        @requires_auth('post:actors')
         def post_actor():
             body = request.get_json()
             if body is None:
@@ -63,6 +66,7 @@ class Server:
 
     def _build_patch_actor_end_point(self):
         @self.flask_server.route('/actors/<actor_id>', methods=['PATCH'])
+        @requires_auth('patch:actors')
         def patch_actor(actor_id):
             body = request.get_json()
 
@@ -82,6 +86,7 @@ class Server:
 
     def _build_delete_actor_end_point(self):
         @self.flask_server.route('/actors/<actor_id>', methods=['DELETE'])
+        @requires_auth('delete:actors')
         def delete_actors(actor_id):
 
             if actor_id is None:
@@ -106,6 +111,7 @@ class Server:
 
     def _build_get_movies_page_end_point(self):
         @self.flask_server.route('/movies', methods=['GET'])
+        @requires_auth('get:movies')
         def get_movies():
             page_number = request.args.get('page', 1, type=int)
             movies = MovieAccess.get_movies_page(page_number)
@@ -121,6 +127,7 @@ class Server:
 
     def _build_post_movie_end_point(self):
         @self.flask_server.route('/movies', methods=['POST'])
+        @requires_auth('post:movies')
         def post_movie():
             body = request.get_json()
             if body is None:
@@ -137,6 +144,7 @@ class Server:
 
     def _build_patch_movie_end_point(self):
         @self.flask_server.route('/movies/<movie_id>', methods=['PATCH'])
+        @requires_auth('patch:movies')
         def patch_movie(movie_id):
             body = request.get_json()
 
@@ -156,6 +164,7 @@ class Server:
 
     def _build_delete_movie_end_point(self):
         @self.flask_server.route('/movies/<movie_id>', methods=['DELETE'])
+        @requires_auth('delete:movies')
         def delete_movie(movie_id):
 
             if movie_id is None:
