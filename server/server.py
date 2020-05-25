@@ -89,18 +89,39 @@ class Server:
 
     def _build_movies_end_points(self):
         self._build_get_movies_page_end_point()
+        self._build_post_movie_end_point()
+        self._build_patch_movie_end_point()
 
     def _build_get_movies_page_end_point(self):
         @self.flask_server.route('/movies', methods=['GET'])
         def get_movies():
             page_number = request.args.get('page', 1, type=int)
-            actors = MovieAccess.get_movies_page(page_number)
+            movies = MovieAccess.get_movies_page(page_number)
 
             if len(page_number) == 0:
                 abort(404)
 
             return jsonify({
                 'success': True,
-                'movies': actors,
+                'movies': movies,
                 'total_movies': MovieAccess.get_total_number()
             })
+
+    def _build_post_movie_end_point(self):
+        @self.flask_server.route('/movies', methods=['POST'])
+        def post_actor():
+            body = request.get_json()
+            if body is None:
+                abort(400)
+            try:
+                movie = MovieAccess.create_movie(body)
+                return jsonify({
+                    'success': True,
+                    'movie_id': movie.id
+                })
+            except Exception as e:
+                print(e)
+                abort(422)
+
+    def _build_patch_movie_end_point(self):
+        pass
