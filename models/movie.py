@@ -9,7 +9,7 @@ class Movie(db.Model):
     id = Column(Integer, primary_key=True)
     title = Column(String)
     release_date = Column(Date)
-    actors = db.relationship('Actor', secondary=Performance, backref=db.backref('performances'))
+    actors = db.relationship('Actor', secondary=Performance, backref=db.backref('movies'))
 
     def __init__(self, title, release_date):
         self.title = title

@@ -1,12 +1,14 @@
 from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
 from database import ActorAccess, MovieAccess
+from models import setup_db
 
 
 class Server:
     def __init__(self, name):
         self.flask_server = Flask(name)
         CORS(self.flask_server)
+        setup_db(self.flask_server)
         self._build_end_points()
 
     def _build_end_points(self):
@@ -119,7 +121,7 @@ class Server:
 
     def _build_post_movie_end_point(self):
         @self.flask_server.route('/movies', methods=['POST'])
-        def post_actor():
+        def post_movie():
             body = request.get_json()
             if body is None:
                 abort(400)
@@ -135,7 +137,7 @@ class Server:
 
     def _build_patch_movie_end_point(self):
         @self.flask_server.route('/movies/<movie_id>', methods=['PATCH'])
-        def patch_actor(movie_id):
+        def patch_movie(movie_id):
             body = request.get_json()
 
             if (movie_id is None) or (body is None):
@@ -154,7 +156,7 @@ class Server:
 
     def _build_delete_movie_end_point(self):
         @self.flask_server.route('/movies/<movie_id>', methods=['DELETE'])
-        def delete_actors(movie_id):
+        def delete_movie(movie_id):
 
             if movie_id is None:
                 abort(400)
