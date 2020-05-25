@@ -36,7 +36,7 @@ class Server:
             page_number = request.args.get('page', 1, type=int)
             actors = ActorAccess.get_actors_page(page_number)
 
-            if len(page_number) == 0:
+            if len(actors) == 0:
                 abort(404)
 
             return jsonify({
@@ -110,7 +110,7 @@ class Server:
             page_number = request.args.get('page', 1, type=int)
             movies = MovieAccess.get_movies_page(page_number)
 
-            if len(page_number) == 0:
+            if len(movies) == 0:
                 abort(404)
 
             return jsonify({
