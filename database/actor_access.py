@@ -43,3 +43,49 @@ class ActorAccess:
         except Exception as e:
             raise ValueError(str(e))
         return actor
+
+    @classmethod
+    def get_actor_by_id(cls, actor_id):
+        drink = Actor.query.filter(Actor.id == actor_id).one_or_none()
+        if drink is None:
+            ValueError('Invalid actor_id')
+        return drink
+
+    @classmethod
+    def update_actor(cls, actor_id, data):
+        actor = cls.get_actor_by_id(actor_id)
+
+        name = data.get('name', actor.name)
+        age = data.get('age', actor.age)
+        gender = data.get('gender', actor.gender)
+
+        actor.name = name
+        actor.age = age
+        actor.gender = gender
+
+        actor.update()
+
+        return actor
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

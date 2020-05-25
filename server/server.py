@@ -17,6 +17,8 @@ class Server:
     def _build_actors_end_points(self):
         self._build_get_actors_page_end_point()
         self._build_post_actor_end_point()
+        self._build_patch_actor_end_point()
+        self._build_delete_actor_end_point()
 
     def _build_get_actors_page_end_point(self):
         @self.flask_server.route('/actors', methods=['GET'])
@@ -48,3 +50,27 @@ class Server:
             except Exception as e:
                 print(e)
                 abort(422)
+
+    def _build_patch_actor_end_point(self):
+        @self.flask_server.route('/actors/<actor_id>', methods=['PATCH'])
+        def patch_actor(actor_id):
+            body = request.get_json()
+
+            if (actor_id is None) or (body is None):
+                abort(400)
+
+            try:
+                actor = ActorAccess.update_actor(actor_id, body)
+                return jsonify({
+                    'success': True,
+                    'actor_id': actor_id.id,
+                    'actors': [actor.format()]
+                })
+            except Exception as e:
+                print(e)
+                abort(404)
+
+    def _build_delete_actor_end_point(self):
+        pass
+
+
