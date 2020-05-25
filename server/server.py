@@ -91,6 +91,7 @@ class Server:
         self._build_get_movies_page_end_point()
         self._build_post_movie_end_point()
         self._build_patch_movie_end_point()
+        self._build_delete_movie_end_point()
 
     def _build_get_movies_page_end_point(self):
         @self.flask_server.route('/movies', methods=['GET'])
@@ -135,9 +136,27 @@ class Server:
                 movie = MovieAccess.update_movie(movie_id, body)
                 return jsonify({
                     'success': True,
-                    'actor_id': movie_id,
-                    'actors': [movie.format()]
+                    'movie_id': movie_id,
+                    'movies': [movie.format()]
                 })
             except Exception as e:
                 print(e)
                 abort(404)
+
+    def _build_delete_movie_end_point(self):
+        @self.flask_server.route('/movies/<movie_id>', methods=['DELETE'])
+        def delete_actors(movie_id):
+
+            if movie_id is None:
+                abort(400)
+
+            try:
+                MovieAccess.delete_movie(movie_id)
+            except Exception as e:
+                print(e)
+                abort(404)
+
+            return jsonify({
+                'success': True,
+                'movie_id': movie_id
+            })
