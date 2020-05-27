@@ -27,8 +27,8 @@ Get page of actors
   2. **boolean** `success`
   3. **total_actors** `age`
 - Example:
-  - URL: 
-  - Response:
+  - URL: http://{{host}}/actors?page=1
+  - Response: [json](./docs/responses/get_actors_page.json)
 - Errors:
   - 404 : invalid page number
   - 401 : un authorized
@@ -46,8 +46,9 @@ Post new actor.
   2. **boolean** `success`
   
 - Example:
-  - URL: 
-  - Response:
+  - URL: http://{{host}}/actors
+    - Body: [json](./docs/requests/post_actor.json)
+  - Response: [json](./docs/responses/post_actors.json)
 
 - Errors:
   - 401 : un authorized "in valid token"
@@ -73,8 +74,9 @@ Patch existing actor
       - **integer** `age`
 
 - Example:
-  - URL: 
-  - Response:
+  - URL: http://{{host}}/actors/4
+    - Body: [json](./docs/requests/patch_actor.json)
+  - Response: [json](./docs/responses/patch_actors.json)
 
 - Errors:
   - 404 : actor id doesn't exists
@@ -92,8 +94,8 @@ Delete existing actor
   2. **boolean** `success`
 
 - Example:
-  - URL: 
-  - Response:
+  - URL: http://{{host}}/actors/6
+  - Response: [json](./docs/responses/delete_actors.json)
 
 - Errors:
   - 404 : actor id doesn't exists
@@ -115,8 +117,8 @@ Get movies page.
   2. **boolean** `success`
   3. **integer** `total_movies`
 - Example:
-  - URL: 
-  - Response:
+  - URL: http://{{host}}/movies?page=1
+  - Response: [json](./docs/responses/get_movies_page.json)
 - Errors:
   - 404 : invalid page number
   - 401 : un authorized
@@ -133,9 +135,9 @@ Post new movie.
   1. **integer** `movie_id`
   2. **boolean** `success`
 - Example:
-  - URL: 
-  - Response:
-
+  - URL: http://{{host}}/movies
+    - Body: [json](./docs/requests/post_movie.json)
+  - Response: [json](./docs/responses/post_movies.json)
 - Errors:
   - 401 : un authorized "in valid token"
   - 422 : un processable "missing attribute"
@@ -158,8 +160,9 @@ Patch existing movie.
         - **string** `title` 
         - **date** `release_date` 
 - Example:
-  - URL: 
-  - Response:
+  - URL: http://{{host}}/movies/10
+    - Body: [json](./docs/requests/patch_movie.json)
+  - Response: [json](./docs/responses/post_movies.json)
 
 - Errors:
   - 404 : actor id doesn't exists
@@ -177,8 +180,8 @@ Delete existing movie.
   2. **boolean** `success`
 
 - Example:
-  - URL: 
-  - Response:
+  - URL: http://{{host}}/movies/20
+  - Response: [json](./docs/responses/delete_movies.json)
 
 - Errors:
   - 404 : actor id doesn't exists

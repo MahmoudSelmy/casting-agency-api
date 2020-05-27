@@ -1,0 +1,56 @@
+{
+    "movies": [
+        {
+            "id": 1,
+            "release_date": "Fri, 25 Mar 2016 00:00:00 GMT",
+            "title": "Movie 0"
+        },
+        {
+            "id": 3,
+            "release_date": "Fri, 25 Mar 2016 00:00:00 GMT",
+            "title": "Movie 2"
+        },
+        {
+            "id": 4,
+            "release_date": "Fri, 25 Mar 2016 00:00:00 GMT",
+            "title": "Movie 3"
+        },
+        {
+            "id": 6,
+            "release_date": "Fri, 25 Mar 2016 00:00:00 GMT",
+            "title": "Movie 5"
+        },
+        {
+            "id": 7,
+            "release_date": "Fri, 25 Mar 2016 00:00:00 GMT",
+            "title": "Movie 6"
+        },
+        {
+            "id": 8,
+            "release_date": "Fri, 25 Mar 2016 00:00:00 GMT",
+            "title": "Movie 7"
+        },
+        {
+            "id": 9,
+            "release_date": "Fri, 25 Mar 2016 00:00:00 GMT",
+            "title": "Movie 8"
+        },
+        {
+            "id": 10,
+            "release_date": "Fri, 25 Mar 2016 00:00:00 GMT",
+            "title": "Movie 9"
+        },
+        {
+            "id": 11,
+            "release_date": "Fri, 25 Mar 2016 00:00:00 GMT",
+            "title": "Movie 10"
+        },
+        {
+            "id": 12,
+            "release_date": "Fri, 25 Mar 2016 00:00:00 GMT",
+            "title": "Movie 11"
+        }
+    ],
+    "success": true,
+    "total_movies": 900
+}
