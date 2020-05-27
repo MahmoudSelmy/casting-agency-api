@@ -3,7 +3,7 @@ import unittest
 import json
 from server import Server
 from utils.tokens import *
-from datetime import date
+from mock import mock_init_data
 
 
 class AgencyTestCase(unittest.TestCase):
@@ -11,6 +11,7 @@ class AgencyTestCase(unittest.TestCase):
         server = Server(__name__)
         self.app = server.flask_server
         self.client = self.app.test_client
+        mock_init_data()
         self.new_actor = {
             'name': 'Selmy',
             'age': 26,
@@ -76,22 +77,22 @@ class AgencyTestCase(unittest.TestCase):
     # ==================================================
 
     def test_patch_actor_executive_producer_returns_200(self):
-        res = self.client().patch('/actors/2', json=self.new_age, headers=executive_producer_auth_header)
+        res = self.client().patch('/actors/5', json=self.new_age, headers=executive_producer_auth_header)
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
         self.assertTrue(data['success'])
         self.assertEqual(len(data['actors']), 1)
-        self.assertEqual(data['actor_id'], 2)
+        self.assertEqual(data['actor_id'], 5)
 
     def test_patch_actor_casting_director_returns_200(self):
-        res = self.client().patch('/actors/2', json=self.new_age, headers=casting_director_auth_header)
+        res = self.client().patch('/actors/5', json=self.new_age, headers=casting_director_auth_header)
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
         self.assertTrue(data['success'])
         self.assertEqual(len(data['actors']), 1)
-        self.assertEqual(data['actor_id'], 2)
+        self.assertEqual(data['actor_id'], 5)
 
     def test_patch_actor_casting_assistant_returns_401(self):
         res = self.client().patch('/actors/2', json=self.new_age, headers=casting_assistant_auth_header)
@@ -173,22 +174,22 @@ class AgencyTestCase(unittest.TestCase):
     # ==================================================
 
     def test_patch_movie_executive_producer_returns_200(self):
-        res = self.client().patch('/movies/2', json=self.new_release_date, headers=executive_producer_auth_header)
+        res = self.client().patch('/movies/5', json=self.new_release_date, headers=executive_producer_auth_header)
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
         self.assertTrue(data['success'])
         self.assertEqual(len(data['movies']), 1)
-        self.assertEqual(data['movie_id'], 2)
+        self.assertEqual(data['movie_id'], 5)
 
     def test_patch_movie_casting_director_returns_200(self):
-        res = self.client().patch('/movies/2', json=self.new_release_date, headers=casting_director_auth_header)
+        res = self.client().patch('/movies/5', json=self.new_release_date, headers=casting_director_auth_header)
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
         self.assertTrue(data['success'])
         self.assertEqual(len(data['movies']), 1)
-        self.assertEqual(data['movie_id'], 2)
+        self.assertEqual(data['movie_id'], 5)
 
     def test_patch_movie_casting_assistant_returns_401(self):
         res = self.client().patch('/movies/2', json=self.new_release_date, headers=casting_assistant_auth_header)
