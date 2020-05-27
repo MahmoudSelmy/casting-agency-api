@@ -1,4 +1,9 @@
-# FSND: Capstone Project
+# Agency API
+
+This is the capstone project of Udacitys' Full-Stack Developer Nano-degree.
+
+The Casting Agency models a company that is responsible for creating movies 
+and managing and assigning actors to those movies. You are an Executive Producer within the company and are creating a system to simplify and streamline your process.
 
 ## Start Project locally
 
@@ -188,3 +193,39 @@ Delete existing movie.
   - 400 : invalid movie_id
   - 401 : un authorized "in valid token"
 
+### Auth0 for locally use
+#### Create an App & API
+
+1. Login to https://manage.auth0.com/ 
+2. Click on Applications Tab
+3. Create Application
+4. Give it a name like `Agency` and select "Regular Web Application"
+5. Go to Settings and find `domain`. Copy & paste it into [auth.py](./auth/auth.py) => AUTH0_DOMAIN = <your-domain>
+6. Click on API Tab 
+7. Create a new API:
+   1. Name: `Agency`
+   2. Identifier `agency`
+   3. Keep Algorithm as it is
+8. Go to Settings and find `agency`. Copy & paste it into [auth.py](./auth/auth.py) => API_AUDIENCE = <your-api-ref>
+
+#### Create Roles & Permissions
+
+1. Before creating `Roles & Permissions`, you need to `Enable RBAC` in your API (API => Click on your API Name => Settings = Enable RBAC => Save)
+2. Also, check the button `Add Permissions in the Access Token`.
+2. First, create a new Role under `Users and Roles` => `Roles` => `Create Roles`
+3. Give it a descriptive name like `Casting Assistant`.
+4. Go back to the API Tab and find your newly created API. Click on Permissions.
+5. Create & assign all needed permissions accordingly 
+6. After you created all permissions this app needs, go back to `Users and Roles` => `Roles` and select the role you recently created.
+6. Under `Permissions`, assign all permissions you want this role to have. 
+
+## Existing Roles & permissions
+
+### 1. Casting assistant
+![](./docs/images/1.png)
+
+### 2. Casting director
+![](./docs/images/2.png)
+
+### 3. Executive producer
+![](./docs/images/3.png)
