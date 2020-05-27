@@ -77,7 +77,7 @@ class Server:
                 actor = ActorAccess.update_actor(actor_id, body)
                 return jsonify({
                     'success': True,
-                    'actor_id': actor_id,
+                    'actor_id': actor.id,
                     'actors': [actor.format()]
                 })
             except Exception as e:
@@ -100,7 +100,7 @@ class Server:
 
             return jsonify({
                 'success': True,
-                'actor_id': actor_id
+                'actor_id': int(actor_id)
             })
 
     def _build_movies_end_points(self):
@@ -155,7 +155,7 @@ class Server:
                 movie = MovieAccess.update_movie(movie_id, body)
                 return jsonify({
                     'success': True,
-                    'movie_id': movie_id,
+                    'movie_id': movie.id,
                     'movies': [movie.format()]
                 })
             except Exception as e:
@@ -178,7 +178,7 @@ class Server:
 
             return jsonify({
                 'success': True,
-                'movie_id': movie_id
+                'movie_id': int(movie_id)
             })
 
     def _build_error_handlers(self):

@@ -45,10 +45,10 @@ class MovieAccess:
 
     @classmethod
     def get_movie_by_id(cls, movie_id):
-        drink = Movie.query.filter(Movie.id == movie_id).one_or_none()
-        if drink is None:
-            ValueError('Invalid Movie_id')
-        return drink
+        movie = Movie.query.filter(Movie.id == movie_id).one_or_none()
+        if movie is None:
+            raise ValueError('Invalid Movie_id')
+        return movie
 
     @classmethod
     def update_movie(cls, movie_id, data):

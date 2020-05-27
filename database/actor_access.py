@@ -46,10 +46,10 @@ class ActorAccess:
 
     @classmethod
     def get_actor_by_id(cls, actor_id):
-        drink = Actor.query.filter(Actor.id == actor_id).one_or_none()
-        if drink is None:
-            ValueError('Invalid actor_id')
-        return drink
+        actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
+        if actor is None:
+            raise ValueError('Invalid actor_id')
+        return actor
 
     @classmethod
     def update_actor(cls, actor_id, data):
